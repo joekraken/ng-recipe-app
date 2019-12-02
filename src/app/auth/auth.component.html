@@ -1,0 +1,28 @@
+<div class="row">
+  <div class="col-xs-12 col-md-6 col-md-offset-3">
+    <!-- <div class="alert alert-danger" *ngIf='error'>
+      <p>{{ error }}</p>
+    </div> -->
+    <!-- declarative approach to dynamic components using *ngIf -->
+    <!-- <app-alert *ngIf='error' [message]='error' (click)='onHandleError()'></app-alert> -->
+    <!-- this is like a pointer on the DOM -->
+    <ng-template appAnchor></ng-template>
+    <div *ngIf='isLoading' class='text-center'>
+      <app-loading-spinner></app-loading-spinner>
+    </div>
+    <form [formGroup]='authForm' (ngSubmit)='onSubmit()' *ngIf='!isLoading'>
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" id='email' class="form-control" formControlName='email'>
+      </div>
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" id='password' class="form-control" formControlName='password'>
+      </div>
+      <div>
+        <button [disabled]='!authForm.valid && !authForm.untouched' type='submit' class="btn btn-primary">{{ isLoginMode ? 'Login' : 'SignUp' }}</button> |
+        <button type='button' class="btn btn-secondary" (click)='onSwitchMode()'>switch to {{ isLoginMode ? 'SignUp' : 'Login' }}</button>
+      </div>
+    </form>
+  </div>
+</div>

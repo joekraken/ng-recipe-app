@@ -1,0 +1,47 @@
+{
+  "recipes" : [ {
+    "description" : "pasta with sauce",
+    "imageUrl" : "https://cdn.pixabay.com/photo/2016/08/19/09/24/spaghetti-1604836_960_720.jpg",
+    "ingredients" : [ {
+      "amount" : 1,
+      "name" : "spaghetti"
+    }, {
+      "amount" : 1,
+      "name" : "pasta sauce"
+    } ],
+    "name" : "spaghetti"
+  }, {
+    "description" : "dough with cheese and sauce",
+    "imageUrl" : "https://live.staticflickr.com/2139/2329552391_ecdccd342c_b.jpg",
+    "ingredients" : [ {
+      "amount" : 1,
+      "name" : "dough"
+    }, {
+      "amount" : 1,
+      "name" : "pizza sauce"
+    }, {
+      "amount" : 5,
+      "name" : "cheese"
+    } ],
+    "name" : "pizza"
+  }, {
+    "description" : "arancini, rissole, croquette, pakora, chicken nugget",
+    "imageUrl" : "https://c.pxhere.com/photos/b6/a1/esfiha_kibe_tidbits_snacks_power_supply-1375826.jpg!d",
+    "ingredients" : [ {
+      "amount" : 1,
+      "name" : "chicken"
+    }, {
+      "amount" : 4,
+      "name" : "pakora"
+    } ],
+    "name" : "esfiha kibe"
+  }, {
+    "description" : "rice, thailand, shrimp, asian food",
+    "imageUrl" : "https://c.pxhere.com/photos/08/fc/food_dish_rice_thailand_food_thailand_shrimp_fast_food_the_pork_fried_rice_made-1377212.jpg!d",
+    "ingredients" : [ {
+      "amount" : 12,
+      "name" : "shrimp"
+    } ],
+    "name" : "thai fried shrimp"
+  } ]
+}
