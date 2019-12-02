@@ -4,7 +4,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Description
 
-This is a course project writing accompanying with [Angular 8 - The Complete Guide](https://www.udemy.com/course/the-complete-guide-to-angular-2) by Maximilian Schwarzmüller
+This is a course project writing accompanying with [Angular 8 - The Complete Guide](https://www.udemy.com/course/the-complete-guide-to-angular-2) online course.
 
 ## Development server
 
@@ -29,3 +29,7 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+## License
+
+[MIT License](https://github.com/joekraken/ng-recipe-app/blob/master/LICENSE)
