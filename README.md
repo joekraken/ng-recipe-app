@@ -9,6 +9,7 @@ This is a course project writing accompanying the [Angular 8 - The Complete Guid
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:3600/`. The app will automatically reload if you change any of the source files.
+#### Note: Firebase API key has been removed and must be provided in [auth.service.ts](https://github.com/joekraken/ng-recipe-app/blob/master/src/app/auth/auth.service.ts) code file.
 
 ## Code scaffolding
 
