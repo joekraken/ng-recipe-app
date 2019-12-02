@@ -4,7 +4,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Description
 
-This is a course project writing inconjunction with [Angular 8 - The Complete Guide](https://www.udemy.com/course/the-complete-guide-to-angular-2) by Maximilian Schwarzmüller
+This is a course project writing accompanying with [Angular 8 - The Complete Guide](https://www.udemy.com/course/the-complete-guide-to-angular-2) by Maximilian Schwarzmüller
 
 ## Development server
 
