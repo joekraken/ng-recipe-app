@@ -1,7 +1,36 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
+
+import { AlertComponent } from './alert/alert.component';
+import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
+import { AnchorDirective } from './anchor/anchor.directive';
+import { DropdownDirective } from './dropdown.directive';
 
 @NgModule({
-  declarations: [],
-  imports: []
+  declarations: [
+    AlertComponent,
+    LoadingSpinnerComponent,
+    AnchorDirective,
+    DropdownDirective
+  ],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule
+  ],
+  exports: [
+    AlertComponent,
+    LoadingSpinnerComponent,
+    AnchorDirective,
+    DropdownDirective,
+    CommonModule,
+    ReactiveFormsModule
+  ],
+  // - (imperative) components which are programmatically created and must be listed to become available
+  // declaring dynamic components created via a component factory
+  entryComponents: [
+    AlertComponent
+  ]
 })
+  // a module of shared components commonly used by other modules
 export class SharedModule { }
