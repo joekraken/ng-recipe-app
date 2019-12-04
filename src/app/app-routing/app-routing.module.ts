@@ -1,12 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
-import { ShoppingListComponent } from '../shopping-list/shopping-list.component';
 import { AuthComponent } from '../auth/auth.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/recipes', pathMatch: 'full' }, // redirect for full empty path
-  { path: 'shopping-list', component: ShoppingListComponent },
   { path: 'auth', component: AuthComponent },
   // wildcard will cause error in child route modules
   // { path: '**', redirectTo: '/recipes' } // wildcard routes redirect to main page
