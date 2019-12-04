@@ -5,7 +5,6 @@ import { AuthComponent } from '../auth/auth.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/recipes', pathMatch: 'full' }, // redirect for full empty path
-  { path: 'auth', component: AuthComponent },
   // wildcard will cause error in child route modules
   // { path: '**', redirectTo: '/recipes' } // wildcard routes redirect to main page
 ];
