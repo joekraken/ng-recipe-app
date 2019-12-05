@@ -10,6 +10,7 @@ import { RecipeEditComponent } from './recipe-edit/recipe-edit.component';
 import { RecipesRouteModule } from './recipes-route.module';
 import { SharedModule } from '../shared/shared.module';
 
+// lazy loaded Feature Module
 @NgModule({
   declarations: [
     RecipesComponent,

@@ -9,7 +9,9 @@ import { RecipesResolverService } from './recipes-resolver.service';
 import { CommonModule } from '@angular/common';
 
 const routes: Routes = [
-  { path: 'recipes', component: RecipesComponent, canActivate: [AuthGuard], children: [
+  // to lazy loaded the top route must be referenced in the main app module route config
+  // path: 'recipes' goes into app-route module config and empty path goes below
+  { path: '', component: RecipesComponent, canActivate: [AuthGuard], children: [
     { path: '', component: RecipeStartComponent },
     { path: 'new', component: RecipeEditComponent },
     { path: ':id', component: RecipeDetailComponent, resolve: [RecipesResolverService] },
@@ -17,6 +19,8 @@ const routes: Routes = [
   ]}
 ];
 
+// lazy loaded Feature Module
+// must contain its own routes and use .forChild() syntax
 @NgModule({
   imports: [CommonModule, RouterModule.forChild(routes)],
   exports: [RouterModule]
