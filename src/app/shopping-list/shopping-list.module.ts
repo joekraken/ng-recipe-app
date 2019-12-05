@@ -6,6 +6,9 @@ import { ShoppingListComponent } from './shopping-list.component';
 import { ShoppingListEditComponent } from './shopping-list-edit/shopping-list-edit.component';
 import { SharedModule } from '../shared/shared.module';
 
+// lazy loaded Feature Module
+// to lazy load, the top route must be referenced in the main app module route config
+// must contain its own routes and use .forChild() syntax
 @NgModule({
   declarations: [
     ShoppingListComponent,
@@ -14,7 +17,7 @@ import { SharedModule } from '../shared/shared.module';
   imports: [
     FormsModule,
     RouterModule.forChild([
-      { path: 'shopping-list', component: ShoppingListComponent }
+      { path: '', component: ShoppingListComponent }
     ]),
     SharedModule
   ]

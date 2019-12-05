@@ -4,6 +4,9 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 
+// lazy loaded Feature Module
+// to lazy load, the top route must be referenced in the main app module route config
+// must contain its own routes and use .forChild() syntax
 @NgModule({
   declarations: [
     AuthComponent
@@ -11,7 +14,7 @@ import { SharedModule } from '../shared/shared.module';
   imports: [
     SharedModule,
     FormsModule,
-    RouterModule.forChild([{ path: 'auth', component: AuthComponent }])
+    RouterModule.forChild([{ path: '', component: AuthComponent }])
   ]
 })
 export class AuthModule { }

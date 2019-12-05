@@ -9,7 +9,7 @@ import { RecipesResolverService } from './recipes-resolver.service';
 import { CommonModule } from '@angular/common';
 
 const routes: Routes = [
-  // to lazy loaded the top route must be referenced in the main app module route config
+  // to lazy load, the top route must be referenced in the main app module route config
   // path: 'recipes' goes into app-route module config and empty path goes below
   { path: '', component: RecipesComponent, canActivate: [AuthGuard], children: [
     { path: '', component: RecipeStartComponent },

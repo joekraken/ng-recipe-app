@@ -5,10 +5,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { AppRoutingModule } from './app-routing/app-routing.module';
-import { ShoppingListModule } from './shopping-list/shopping-list.module';
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core.module';
-import { AuthModule } from './auth/auth.module';
 
 @NgModule({
   // - list of components, directives, and pipes used in this modul
@@ -20,9 +18,9 @@ import { AuthModule } from './auth/auth.module';
     BrowserModule,
     HttpClientModule, // required for global Http services
     AppRoutingModule,
-    AuthModule,
+    // AuthModule, // lazy loaded modules shouldn't be eagerly loaded
     // RecipesModule, // lazy loaded modules shouldn't be eagerly loaded
-    ShoppingListModule,
+    // ShoppingListModule, // lazy loaded modules shouldn't be eagerly loaded
     SharedModule,
     CoreModule
   ],
