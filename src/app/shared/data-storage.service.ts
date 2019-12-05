@@ -63,7 +63,6 @@ export class DataStorageService {
         });
       }),
         tap(recipes => {
-          console.log('recipes fetched');
           this.recipeService.setRecipes(recipes);
         })
       );

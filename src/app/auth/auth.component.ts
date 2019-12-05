@@ -43,7 +43,6 @@ export class AuthComponent implements OnInit, OnDestroy {
     if (!this.authForm.valid) {
       return;
     }
-    console.log(this.authForm.value);
 
     // user data from auth form
     const email = this.authForm.get('email').value;
@@ -56,16 +55,13 @@ export class AuthComponent implements OnInit, OnDestroy {
     if (this.isLoginMode) {
       // login to backend
       authObservable = this.authService.login(email, password);
-      console.log('LOGIN');
     } else {
       // signup new user to backend
       authObservable = this.authService.signup(email, password);
-      console.log('SIGNUP');
     }
 
     // execute Observable by subscribing
     authObservable.subscribe(response => {
-      console.log(response);
       this.isLoading = false;
       this.router.navigate(['/recipes']);
     }, errorMessage => {
@@ -75,7 +71,6 @@ export class AuthComponent implements OnInit, OnDestroy {
     });
 
     this.authForm.reset();
-    // console.log(this.authForm.value);
   }
 
   // reset the error after
