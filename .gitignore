@@ -39,6 +39,11 @@ testem.log
 /typings
 /src/app/auth/auth.constants.ts
 
+# firebase
+.firebaserc
+firebase.json
+/.firebase
+
 # System Files
 .DS_Store
 Thumbs.db
