@@ -4,7 +4,8 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Description
 
-This is a course project writing accompanying the [Angular 8 - The Complete Guide](https://www.udemy.com/course/the-complete-guide-to-angular-2) online course.
+This app is designed to store recipes and provide a shopping list of ingredients.  The app is deployed onto Firebase [here](https://ng-recipe-book-f3fe0.firebaseapp.com).  Dummy account user is '2@2.com' with password '123456'.
+This is a course project was coded inconjunction with the [Angular 8 - The Complete Guide](https://www.udemy.com/course/the-complete-guide-to-angular-2) online course.
 
 ## Development server
 
