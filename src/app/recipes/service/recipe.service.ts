@@ -1,8 +1,12 @@
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
+import { Store } from '@ngrx/store';
+
 import { Recipe } from '../recipe.model';
 import { Ingredient } from 'src/app/shared/ingredient.model';
 import { ShoppingListService } from 'src/app/shopping-list/service/shopping-list.service';
-import { Subject } from 'rxjs';
+import * as ShoppingListActions from '../../shopping-list/store/shopping-list.actions';
+import * as fromShoppingList from '../../shopping-list/store/shopping-list.reducer';
 
 // remove @Injectable to make it component and its child accessiable only
 // include @Injectable to make it global from 'root'
@@ -35,7 +39,9 @@ export class RecipeService {
   //     [new Ingredient('shrimp', 12)])
   // ];
 
-  constructor(private shoppingListService: ShoppingListService) { }
+  constructor(private shoppingListService: ShoppingListService,
+    private store: Store<fromShoppingList.AppState>
+  ) { }
 
   // override recipe list
   setRecipes(recipes: Recipe[]) {
@@ -68,7 +74,9 @@ export class RecipeService {
   }
 
   addIngredientsToShoppingList(ingredients: Ingredient[]) {
-    this.shoppingListService.addIngredients(ingredients);
+    // this.shoppingListService.addIngredients(ingredients);
+    // dispatch the AddIngredients() and include the Ingredients[] array as payload
+    this.store.dispatch(new ShoppingListActions.AddIngredients(ingredients));
   }
 
   emitRecipeList() {
