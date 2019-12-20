@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Ingredient } from 'src/app/shared/ingredient.model';
 import { Subject } from 'rxjs';
 
+// DEPRECATED: using the NgRx Store to manage shopping cart data
 @Injectable({
   providedIn: 'root'
 })
@@ -17,6 +18,7 @@ export class ShoppingListService {
 
   constructor() { }
 
+  /*
   getIngredients() {
     // using slice() returns a copy of an array
     return this.ingredients.slice();
@@ -54,4 +56,5 @@ export class ShoppingListService {
   emitIngredients() {
     this.ingredientsChanged.next(this.ingredients.slice());
   }
+  */
 }

@@ -2,7 +2,7 @@ import { Action } from '@ngrx/store';
 
 import { Ingredient } from '../../shared/ingredient.model';
 
-// string identifiers for actions
+// string identifiers for actions (best practice) to avoid typos
 export const ADD_INGREDIENT = 'ADD_INGREDIENT';
 export const ADD_INGREDIENTS = 'ADD_INGREDIENTS';
 export const UPDATE_INGREDIENT = 'UPDATE_INGREDIENT';
@@ -27,15 +27,17 @@ export class AddIngredients implements Action {
 // UpdateIngredient class that implements the Action interface
 export class UpdateIngredient implements Action {
   readonly type = UPDATE_INGREDIENT;
-  // create a new object with payload with index and new ingredient
-  constructor(public payload: { index: number, ingredient: Ingredient }) {}
+  // OBSELETE: create a new object with payload with index and new ingredient
+  // create new object with ingredient as payload
+  constructor(public payload: Ingredient) {}
 }
 
 // DeleteIngredient class that implements the Action interface
 export class DeleteIngredient implements Action {
   readonly type = DELETE_INGREDIENT;
-  // create a new object with payload of the ingredient index
-  constructor(public payload: number) {}
+  // StartEdit() sets the editing ingredient index in the Store
+  // OBSELETE: create a new object with payload of the ingredient index
+  // constructor(public payload: number) {}
 }
 
 // for editing an ingredient on the shopping list

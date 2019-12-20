@@ -22,7 +22,7 @@ export class ShoppingListEditComponent implements OnInit, OnDestroy {
   @ViewChild('f', {static: false}) shoppingForm: NgForm;
   subscription: Subscription;
   editMode = false;
-  editedItemIndex: number;
+  // editedItemIndex: number; // redudant data, saved in the Store
   editedItem: Ingredient;
 
   constructor(private shoppingListService: ShoppingListService,
@@ -37,7 +37,7 @@ export class ShoppingListEditComponent implements OnInit, OnDestroy {
       if (stateData.editedIngredientIndex > -1) {
         this.editMode = true;
         this.editedItem = stateData.editedIngredient;
-        this.editedItemIndex = stateData.editedIngredientIndex; // redundant data
+        // this.editedItemIndex = stateData.editedIngredientIndex; // redundant data, in Store
         // set the form values with edited ingredient
         this.shoppingForm.setValue({
           name: this.editedItem.name,
@@ -68,7 +68,10 @@ export class ShoppingListEditComponent implements OnInit, OnDestroy {
       // this.shoppingListService.updateIngredient(this.editedItemIndex, newIngredient);
 
       // dispatch UPDATE_INGREDIENT action and include payload with index and newIngredient
-      this.store.dispatch(new ShoppingListActions.UpdateIngredient({ index: this.editedItemIndex, ingredient: newIngredient }));
+      this.store.dispatch(new ShoppingListActions.UpdateIngredient(newIngredient
+        // index: this.editedItemIndex, // redundant data, in Store
+        // ingredient: newIngredient // redundant, since the newIngredient is the payload
+      ));
     } else {
       // this.shoppingListService.addIngredient(newIngredient);
 
@@ -85,7 +88,7 @@ export class ShoppingListEditComponent implements OnInit, OnDestroy {
       // this.shoppingListService.deleteIngredient(this.editedItemIndex);
 
       // dispatch DELETE_INGREDIENT action and include the ingredient index as payload
-      this.store.dispatch(new ShoppingListActions.DeleteIngredient(this.editedItemIndex));
+      this.store.dispatch(new ShoppingListActions.DeleteIngredient());  // edited item index saved in the Store
       this.onClear();
     }
   }
