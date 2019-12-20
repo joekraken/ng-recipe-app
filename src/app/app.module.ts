@@ -8,7 +8,10 @@ import { HeaderComponent } from './header/header.component';
 import { AppRoutingModule } from './app-routing/app-routing.module';
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core.module';
-import { shoppingListReducer } from './shopping-list/store/shopping-list.reducer';
+import * as fromApp from './store/app.reducer';
+
+// import { shoppingListReducer } from './shopping-list/store/shopping-list.reducer';
+// import { authReducer } from './auth/store/auth.reducer';
 
 @NgModule({
   // - list of components, directives, and pipes used in this modul
@@ -20,12 +23,12 @@ import { shoppingListReducer } from './shopping-list/store/shopping-list.reducer
     BrowserModule,
     HttpClientModule, // required for global Http services
     AppRoutingModule,
-    StoreModule.forRoot({shoppingList: shoppingListReducer}), // load NgRx store and register a reducer function
+    StoreModule.forRoot(fromApp.appReducer), // register a global reducer and thus access a global NgRx Store
+    SharedModule,
+    CoreModule
     // AuthModule, // lazy loaded modules shouldn't be eagerly loaded
     // RecipesModule, // lazy loaded modules shouldn't be eagerly loaded
     // ShoppingListModule, // lazy loaded modules shouldn't be eagerly loaded
-    SharedModule,
-    CoreModule
   ],
   // - root component to load 1st, which is the entry point of the app
   bootstrap: [AppComponent]

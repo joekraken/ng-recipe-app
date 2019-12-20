@@ -3,12 +3,6 @@
 import { Ingredient } from '../../shared/ingredient.model';
 import * as ShoppingListActions from './shopping-list.actions';
 
-// defines the global App State object used throughout app
-// easier to change State type and properties
-export interface AppState {
-  shoppingList: StateType;
-}
-
 // defines the properties and types of the Shopping List State objects
 export interface StateType {
   ingredients: Ingredient[];
@@ -16,7 +10,7 @@ export interface StateType {
   editedIngredientIndex: number;
 }
 
-const initialState = {
+const initialState: StateType = {
   ingredients: [
     new Ingredient('apples', 5),
     new Ingredient('tomatoes', 8)
