@@ -1,14 +1,18 @@
 import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpParams } from '@angular/common/http';
 import { AuthService } from './auth.service';
-import { take, exhaustMap } from 'rxjs/operators';
+import { take, exhaustMap, map } from 'rxjs/operators';
+import { Store } from '@ngrx/store';
+
+import * as fromApp from '../store/app.reducer';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthInterceptorService implements HttpInterceptor {
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private store: Store<fromApp.AppState>) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     /*
@@ -18,8 +22,13 @@ export class AuthInterceptorService implements HttpInterceptor {
 
       result: authService Subject is executed and closed, then replaced by Http GET Observable and returned
     */
-    return this.authService.userSubject.pipe(
+    // return this.authService.userSubject.pipe(  // previous code using Subjects and Services
+    return this.store.select('auth').pipe( // select the 'auth' property from the store
       take(1),
+      // get the user from the authState object
+      map(authState => {
+        return authState.user;
+      }),
       exhaustMap(user => {
         // if (!user) {
         //   return next.handle(req);

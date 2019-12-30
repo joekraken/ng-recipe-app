@@ -1,11 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { AuthResponseData } from './auth-response-data';
 import { catchError, tap } from 'rxjs/operators';
-import { throwError, Subject, BehaviorSubject } from 'rxjs';
-import { User } from './user.model';
+import { throwError, BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+
 import { FirebaseSettings } from './auth.constants';
+import { AuthResponseData } from './auth-response-data';
+import { User } from './user.model';
+import * as fromApp from '../store/app.reducer';
+import * as AuthActions from './store/auth.actions';
 
 @Injectable({
   providedIn: 'root'
@@ -19,10 +23,12 @@ export class AuthService {
   private readonly loginUrl = this.firebaseUrl + 'signInWithPassword?key=' + this.APIKEY;
 
   // user object.  BehaviorSubject emits current value when subscribed to and must have initial value
-  userSubject = new BehaviorSubject<User>(null);
+  // userSubject = new BehaviorSubject<User>(null);
   private tokenTimer: any; // to store token expiration timer
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router,
+    // inject the store with the global app state interface type
+    private store: Store<fromApp.AppState>) { }
 
   // send POST request to login with user credentials stored on Firebase
   login(email: string, password: string) {
@@ -48,7 +54,15 @@ export class AuthService {
     const userObject = new User(userData.email, userData.id, userData._token, new Date(userData._tokenExpirationDate));
     // check if token is valid
     if (userObject.token) {
-      this.userSubject.next(userObject);
+      // this.userSubject.next(userObject);  // behavior provided via Subject/Observable method
+
+      // dispatch the user LOGIN action and include the user data
+      this.store.dispatch(
+        new AuthActions.Login({
+          email: userObject.email, userId: userObject.id, token: userObject.token,
+          expirationDate: new Date(userData._tokenExpirationDate)
+        })
+      );
       const expirationMilliseconds = new Date(userData._tokenExpirationDate).getTime() - new Date().getTime();
       this.autoLogout(expirationMilliseconds);
     }
@@ -68,7 +82,10 @@ export class AuthService {
 
   // logout current user, set to null
   logout() {
-    this.userSubject.next(null);
+    // this.userSubject.next(null);  // behavior provided via Subject/Observable method
+
+    // dispatch the user LOGOUT action, no payload required the reducer will reset user data
+    this.store.dispatch(new AuthActions.Logout());
     this.router.navigate(['/auth']);
 
     // delete user info from persistent storage
@@ -91,8 +108,16 @@ export class AuthService {
   private handleAuthentication(email: string, uid: string, token: string, expiresIn: number) {
     /// create expiration date by adding expiresIn(seconds) to the current Date(milliseconds)
     const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
-    const user = new User(email, uid, token, expirationDate);
-    this.userSubject.next(user);
+    const user = new User(email, uid, token, expirationDate);  // used in Subject/Observable method
+    // this.userSubject.next(user); // behavior provided via Subject/Observable method
+
+    // dispatch the user LOGIN action and include the user data
+    this.store.dispatch(
+      new AuthActions.Login({
+        email: email, userId: uid, token: token,
+        expirationDate: expirationDate
+      })
+    );
     this.autoLogout(expiresIn * 1000);
     // persist the user data
     localStorage.setItem('userData', JSON.stringify(user));

@@ -1,7 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { Store } from '@ngrx/store';
+
 import { DataStorageService } from '../shared/data-storage.service';
 import { AuthService } from '../auth/auth.service';
-import { Subscription } from 'rxjs';
+import * as fromApp from '../store/app.reducer';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-header',
@@ -13,13 +17,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private userSubcription: Subscription;
   isUserAuthenticated = false;
 
-  constructor(private dataService: DataStorageService, private authService: AuthService) { }
+  constructor(private dataService: DataStorageService, private authService: AuthService, private store: Store<fromApp.AppState>) { }
 
   ngOnInit() {
     // setup subscription to get the user object when logged in
-    this.userSubcription = this.authService.userSubject.subscribe(user => {
-      this.isUserAuthenticated = !!user;  // like using a ternary?:; operator
-    });
+    // this.userSubcription = this.authService.userSubject.subscribe(user => { // previous code using Subjects and Services
+    this.userSubcription = this.store
+      .select('auth')
+      // .pipe(map(authState => authState.user)) // extract the user from the authState object
+      .subscribe(authState => {
+        this.isUserAuthenticated = !!authState.user;  // like using a ternary?:; operator
+      });
   }
 
   onSave() {
