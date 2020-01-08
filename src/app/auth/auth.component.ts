@@ -6,7 +6,10 @@ import { Observable, Subscription } from 'rxjs';
 import { AuthResponseData } from './auth-response-data';
 import { AlertComponent } from '../shared/alert/alert.component';
 import { AnchorDirective } from '../shared/anchor/anchor.directive';
+import { Store } from '@ngrx/store';
 
+import * as fromApp from '../store/app.reducer';
+import * as AuthActions from './store/auth.actions';
 
 @Component({
   selector: 'app-auth',
@@ -14,7 +17,7 @@ import { AnchorDirective } from '../shared/anchor/anchor.directive';
   styleUrls: ['./auth.component.scss']
 })
 export class AuthComponent implements OnInit, OnDestroy {
-  isLoginMode = true;
+  isLoginMode = true; // only needed in this component, so not managed in NgRx store
   isLoading = false;
   error: string = null;
   authForm: FormGroup;
@@ -27,10 +30,23 @@ export class AuthComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private router: Router,
     private route: ActivatedRoute,
-    private componentFactoryResolver: ComponentFactoryResolver) { }
+    private componentFactoryResolver: ComponentFactoryResolver,
+    private store: Store<fromApp.AppState>) { }
 
   ngOnInit() {
     this.initForm();
+    // get the auth state from the Store
+    this.store.select('auth').subscribe(authState => {
+      // here can get user, else an login error message
+      // update UI based on Store State
+      this.isLoading = authState.isLoading;
+      this.error = authState.authError;
+      // check if error occurred
+      if (this.error) {
+        this.showErrorAlert(this.error);
+      }
+      // note: use NgRx Effects for managing navigation
+    });
   }
 
   ngOnDestroy() {
@@ -54,21 +70,24 @@ export class AuthComponent implements OnInit, OnDestroy {
     // check login mode is signup or login, assign Observable
     if (this.isLoginMode) {
       // login to backend
-      authObservable = this.authService.login(email, password);
+      // authObservable = this.authService.login(email, password); // (deprecated) using Observables and Services
+
+      // dispatch doesnt provide Observable
+      this.store.dispatch(new AuthActions.LoginStart({email: email, password: password}));
     } else {
       // signup new user to backend
       authObservable = this.authService.signup(email, password);
     }
 
-    // execute Observable by subscribing
-    authObservable.subscribe(response => {
-      this.isLoading = false;
-      this.router.navigate(['/recipes']);
-    }, errorMessage => {
-      this.error = 'ERROR: ' + errorMessage; // used with declarative example of dynamic components
-      this.showErrorAlert(errorMessage);
-      this.isLoading = false;
-    });
+    // (deprecated) execute Observable by subscribing
+    // authObservable.subscribe(response => {
+    //   this.isLoading = false;
+    //   this.router.navigate(['/recipes']);
+    // }, errorMessage => {
+    //   this.error = 'ERROR: ' + errorMessage; // used with declarative example of dynamic components
+    //   this.showErrorAlert(errorMessage);
+    //   this.isLoading = false;
+    // });
 
     this.authForm.reset();
   }
