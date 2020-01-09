@@ -7,8 +7,9 @@ export const AUTHENTICATE_SUCCESS = '[auth]AUTHENTICATE_SUCCESS';
 // used for failed Login and Signup
 export const AUTHENTICATE_FAIL = '[auth]AUTHENTICATE_FAIL';
 export const SIGNUP_START = '[auth]SIGNUP_START';
-export const SIGNUP = '[auth]SIGNUP';
 export const LOGOUT = '[auth]LOGOUT';
+// clearing and handling errors
+export const CLEAR_ERROR = '[auth]CLEAR_ERROR';
 
 
 // for successful login or signup
@@ -43,5 +44,8 @@ export class SignupStart implements Action {
   constructor(public payload: { email: string; password: string }) {}
 }
 
+export class ClearError implements Action {
+  readonly type = CLEAR_ERROR;
+}
 // union of the all the custom Auth Action types
-export type Types = AuthenticateSuccess | Logout | LoginStart | AuthenticateFail  | SignupStart;
+export type Types = AuthenticateSuccess | Logout | LoginStart | AuthenticateFail  | SignupStart | ClearError;

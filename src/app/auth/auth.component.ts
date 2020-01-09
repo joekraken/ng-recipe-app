@@ -22,6 +22,7 @@ export class AuthComponent implements OnInit, OnDestroy {
   error: string = null;
   authForm: FormGroup;
   private closeSubscription: Subscription;
+  private storeSub: Subscription;
 
   // @ViewChild points to the DOM element using the anchor directive
   @ViewChild(AnchorDirective, { static: false }) alertHost: AnchorDirective;
@@ -36,7 +37,7 @@ export class AuthComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.initForm();
     // get the auth state from the Store
-    this.store.select('auth').subscribe(authState => {
+    this.storeSub = this.store.select('auth').subscribe(authState => {
       // here can get user, else an login error message
       // update UI based on Store State
       this.isLoading = authState.isLoading;
@@ -53,6 +54,9 @@ export class AuthComponent implements OnInit, OnDestroy {
     if (this.closeSubscription) {
       this.closeSubscription.unsubscribe();
     }
+    if (this.storeSub) {
+      this.storeSub.unsubscribe();
+    }
   }
 
   onSubmit() {
@@ -64,9 +68,6 @@ export class AuthComponent implements OnInit, OnDestroy {
     const email = this.authForm.get('email').value;
     const password = this.authForm.get('password').value;
 
-    let authObservable: Observable<AuthResponseData>;
-
-    this.isLoading = true;
     // check login mode is signup or login, assign Observable
     if (this.isLoginMode) {
       // login to backend
@@ -76,26 +77,18 @@ export class AuthComponent implements OnInit, OnDestroy {
       this.store.dispatch(new AuthActions.LoginStart({email: email, password: password}));
     } else {
       // signup new user to backend
-      authObservable = this.authService.signup(email, password);
+      this.store.dispatch(new AuthActions.SignupStart({ email: email, password: password }));
     }
-
-    // (deprecated) execute Observable by subscribing
-    // authObservable.subscribe(response => {
-    //   this.isLoading = false;
-    //   this.router.navigate(['/recipes']);
-    // }, errorMessage => {
-    //   this.error = 'ERROR: ' + errorMessage; // used with declarative example of dynamic components
-    //   this.showErrorAlert(errorMessage);
-    //   this.isLoading = false;
-    // });
 
     this.authForm.reset();
   }
 
   // reset the error after
   // used with declarative example of dynamic components
+  // TODO: reset error in the state of the store
   onHandleError() {
-    this.error = null;
+    // this.error = null;
+    this.store.dispatch(new AuthActions.ClearError());
   }
 
   // used with imperative example of dynamic components

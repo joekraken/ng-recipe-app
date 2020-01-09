@@ -22,12 +22,13 @@ const initialState: StateType = {
 export function authReducer(state = initialState, action: AuthActions.Types) {
   switch (action.type) {
     case AuthActions.LOGIN_START:
+    case AuthActions.SIGNUP_START:
       return {
         ...state,
         authError: null, // reset errors to null
         isLoading: true
       };
-    case AuthActions.LOGIN:
+    case AuthActions.AUTHENTICATE_SUCCESS:
       const data = action.payload;
       const user = new User(data.email, data.userId, data.token, data.expirationDate); // create user
       return {
@@ -35,7 +36,7 @@ export function authReducer(state = initialState, action: AuthActions.Types) {
         user: user, // store logged in user
         isLoading: false // done logging process
       };
-    case AuthActions.LOGIN_FAIL:
+    case AuthActions.AUTHENTICATE_FAIL:
       return {
         ...state,
         user: null, // set user to null, since login failed
@@ -47,6 +48,12 @@ export function authReducer(state = initialState, action: AuthActions.Types) {
       return {
         ...state,
         user: null
+      };
+    case AuthActions.CLEAR_ERROR:
+      // clear the error
+      return {
+        ...state,
+        authError: null
       };
     default:
       return state;

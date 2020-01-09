@@ -30,17 +30,10 @@ export class AuthService {
     // inject the store with the global app state interface type
     private store: Store<fromApp.AppState>) { }
 
-  // send POST request to login with user credentials stored on Firebase
-  login(email: string, password: string) {
-    // POST request requires endpoint w/ APIKEY and body
-    return this.http.post<AuthResponseData>(
-      this.loginUrl,
-      // request body payload w/ 'email', 'password', and 'returnSecureToken' as true
-      { 'email': email, 'password': password, 'returnSecureToken': true }
-    ).pipe(catchError(this.handleError), tap(data => {
-      this.handleAuthentication(data.email, data.localId, data.idToken, +data.expiresIn);
-    }));
-  }
+  /* functions refactored into NgRx Effects in auth.effects.ts
+  login(email: string, password: string) {}
+  signup(email: string, password: string) {
+  */
 
   autoLogin() {
     // get user info, as simple object, from persistent storage
@@ -58,7 +51,7 @@ export class AuthService {
 
       // dispatch the user LOGIN action and include the user data
       this.store.dispatch(
-        new AuthActions.Login({
+        new AuthActions.AuthenticateSuccess({
           email: userObject.email, userId: userObject.id, token: userObject.token,
           expirationDate: new Date(userData._tokenExpirationDate)
         })
@@ -68,25 +61,13 @@ export class AuthService {
     }
   }
 
-  // send POST request to create with new user email and password to Firebase
-  signup(email: string, password: string) {
-    // POST request requires endpoint w/ APIKEY and body
-    return this.http.post<AuthResponseData>(
-      this.signupUrl,
-      // request body payload w/ 'email', 'password', and 'returnSecureToken' as true
-      { 'email': email, 'password': password, 'returnSecureToken': true }
-    ).pipe(catchError(this.handleError), tap(data => {
-      this.handleAuthentication(data.email, data.localId, data.idToken, +data.expiresIn);
-    }));
-  }
-
   // logout current user, set to null
   logout() {
     // this.userSubject.next(null);  // behavior provided via Subject/Observable method
 
     // dispatch the user LOGOUT action, no payload required the reducer will reset user data
     this.store.dispatch(new AuthActions.Logout());
-    this.router.navigate(['/auth']);
+    // this.router.navigate(['/auth']);  // (DEPRECATED) done by NgRx Effects in auth.effect.ts
 
     // delete user info from persistent storage
     localStorage.removeItem('userData');
@@ -113,7 +94,7 @@ export class AuthService {
 
     // dispatch the user LOGIN action and include the user data
     this.store.dispatch(
-      new AuthActions.Login({
+      new AuthActions.AuthenticateSuccess({
         email: email, userId: uid, token: token,
         expirationDate: expirationDate
       })
