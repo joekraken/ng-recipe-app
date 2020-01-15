@@ -2,6 +2,7 @@ import { Action } from '@ngrx/store';
 
 //  string identifiers for auth actions
 export const LOGIN_START = '[auth]LOGIN_START';
+export const AUTO_LOGIN = '[auth]AUTO_LOGIN';
 // used for successful Login and Signup
 export const AUTHENTICATE_SUCCESS = '[auth]AUTHENTICATE_SUCCESS';
 // used for failed Login and Signup
@@ -20,11 +21,6 @@ export class AuthenticateSuccess implements Action {
   constructor(public payload: {email: string, userId: string, token, expirationDate: Date}) {}
 }
 
-export class Logout implements Action {
-  readonly type = LOGOUT;
-  // no data required, the reducer will 'clear' the current user data
-}
-
 export class LoginStart implements Action {
   readonly type = LOGIN_START;
   // pass as payload the user email and password for login
@@ -38,6 +34,15 @@ export class AuthenticateFail implements Action {
   constructor(public payload: string) {}
 }
 
+export class AutoLogin implements Action {
+  readonly type = AUTO_LOGIN;
+}
+
+export class Logout implements Action {
+  readonly type = LOGOUT;
+  // no data required, the reducer will 'clear' the current user data
+}
+
 export class SignupStart implements Action {
   readonly type = SIGNUP_START;
   // signup requires as payload the new user email and password
@@ -48,4 +53,4 @@ export class ClearError implements Action {
   readonly type = CLEAR_ERROR;
 }
 // union of the all the custom Auth Action types
-export type Types = AuthenticateSuccess | Logout | LoginStart | AuthenticateFail  | SignupStart | ClearError;
+export type Types = AuthenticateSuccess | LoginStart | AuthenticateFail | AutoLogin | Logout | SignupStart | ClearError;

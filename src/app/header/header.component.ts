@@ -18,7 +18,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private userSubcription: Subscription;
   isUserAuthenticated = false;
 
-  constructor(private dataService: DataStorageService, private authService: AuthService, private store: Store<fromApp.AppState>) { }
+  constructor(private dataService: DataStorageService, private store: Store<fromApp.AppState>) { }
 
   ngOnInit() {
     // setup subscription to get the user object when logged in
@@ -41,7 +41,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   onLogout() {
     // this.authService.logout();
-    this.store.dispatch(new AuthActions.Logout);
+    this.store.dispatch(new AuthActions.Logout());
   }
 
   ngOnDestroy() {

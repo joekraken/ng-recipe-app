@@ -14,8 +14,8 @@ export class AuthGuard implements CanActivate {
   constructor(private authService: AuthService, private router: Router, private store: Store<fromApp.AppState>) { }
 
   canActivate(
-    next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+    route: ActivatedRouteSnapshot,
+    router: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     // return this.authService.userSubject.pipe(  // previous code using Subjects and Services
     return this.store.select('auth').pipe( // select the 'auth' property from the store
       take(1), // makes guard once
