@@ -4,13 +4,13 @@ import { Ingredient } from '../../shared/ingredient.model';
 import * as ShoppingListActions from './shopping-list.actions';
 
 // defines the properties and types of the Shopping List State objects
-export interface StateType {
+export interface State {
   ingredients: Ingredient[];
   editedIngredient: Ingredient;
   editedIngredientIndex: number;
 }
 
-const initialState: StateType = {
+const initialState: State = {
   ingredients: [
     new Ingredient('apples', 5),
     new Ingredient('tomatoes', 8)

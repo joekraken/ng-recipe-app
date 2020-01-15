@@ -4,14 +4,14 @@ import * as AuthActions from './auth.actions';
 import { User } from '../user.model';
 
 // defines the properties of the Auth Store
-export interface StateType {
+export interface State {
   user: User; // currently logged in user
   authError: string; // login error message
   isLoading: boolean; // flag when logging in
 }
 
 // data used to set the state when app loads for 1st time
-const initialState: StateType = {
+const initialState: State = {
   user: null,
   authError: null, // null for no errors
   isLoading: false
