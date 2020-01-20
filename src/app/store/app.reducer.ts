@@ -3,7 +3,7 @@ import { ActionReducerMap } from '@ngrx/store';
 // import all the Reducers
 import * as fromShoppingList from '../shopping-list/store/shopping-list.reducer';
 import * as fromAuth from '../auth/store/auth.reducer';
-import * as fromRecipes from '../recipes/store/recipes.reducer';
+import * as fromRecipes from '../recipes/store/recipe.reducer';
 
 // defines the global App State object used throughout app
 // easier to change State type and properties

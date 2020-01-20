@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import { DataStorageService } from '../shared/data-storage.service';
 import * as fromApp from '../store/app.reducer';
 import * as AuthActions from '../auth/store/auth.actions';
+import * as RecipeActions from '../recipes/store/recipe.actions';
 
 @Component({
   selector: 'app-header',
@@ -16,7 +17,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private userSubcription: Subscription;
   isUserAuthenticated = false;
 
-  constructor(private dataService: DataStorageService, private store: Store<fromApp.AppState>) { }
+  constructor(private dataService: DataStorageService,
+    private store: Store<fromApp.AppState>) { }
 
   ngOnInit() {
     // setup subscription to get the user object when logged in
@@ -34,7 +36,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   onFetch() {
-    this.dataService.fetchRecipes().subscribe();
+    // this.dataService.fetchRecipes().subscribe();
+    this.store.dispatch(new RecipeActions.FetchRecipes());
   }
 
   onLogout() {

@@ -18,7 +18,7 @@ export class AuthenticateSuccess implements Action {
   readonly type = AUTHENTICATE_SUCCESS;
   // pass the user data to reducer, which creates a new user
   // alternatively, create new User object then pass it as payload
-  constructor(public payload: {email: string, userId: string, token, expirationDate: Date}) {}
+  constructor(public payload: {email: string, userId: string, token, expirationDate: Date, redirect: boolean}) {}
 }
 
 export class LoginStart implements Action {

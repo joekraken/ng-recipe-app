@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 
 import { Recipe } from '../recipe.model';
 import * as fromApp from '../../store/app.reducer';
-// import * as RecipesActions from '../store/recipes.actions';
+// import * as RecipeActions from '../store/recipe.actions';
 
 @Component({
   selector: 'app-recipe-list',

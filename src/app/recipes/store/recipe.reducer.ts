@@ -1,5 +1,5 @@
 import { Recipe } from '../recipe.model';
-import * as RecipesActions from './recipes.actions';
+import * as RecipeActions from './recipe.actions';
 
 // template describing the Recipe State
 export interface State {
@@ -13,9 +13,9 @@ const initialState: State = {
 
 // Reducer function, takes a state and action
 // depending in Action Type, returns a new State or current one
-export function recipeReducer(state = initialState, action: RecipesActions.Types) {
+export function recipeReducer(state = initialState, action: RecipeActions.Types) {
   switch (action.type) {
-    case RecipesActions.SET_RECIPES:
+    case RecipeActions.SET_RECIPES:
       return {
         ...state,
         recipes: [...action.recipes] // spread operator to set the recipes payload

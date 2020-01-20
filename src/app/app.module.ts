@@ -14,6 +14,7 @@ import { CoreModule } from './core.module';
 import * as fromApp from './store/app.reducer';
 import { AuthEffects } from './auth/store/auth.effects';
 import { environment } from '../environments/environment';
+import { RecipeEffects } from './recipes/store/recipe.effects';
 
 // import { shoppingListReducer } from './shopping-list/store/shopping-list.reducer';
 // import { authReducer } from './auth/store/auth.reducer';
@@ -29,7 +30,7 @@ import { environment } from '../environments/environment';
     HttpClientModule, // required for global Http services
     AppRoutingModule,
     StoreModule.forRoot(fromApp.appReducer), // register a global reducer and thus access a global NgRx Store
-    EffectsModule.forRoot([AuthEffects]), // register Effects classes
+    EffectsModule.forRoot([AuthEffects, RecipeEffects]), // register Effects classes
     StoreDevtoolsModule.instrument({ logOnly: environment.production }),
     StoreRouterConnectingModule.forRoot(),
     SharedModule,
