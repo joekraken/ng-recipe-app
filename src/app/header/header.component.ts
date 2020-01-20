@@ -2,7 +2,6 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 
-import { DataStorageService } from '../shared/data-storage.service';
 import * as fromApp from '../store/app.reducer';
 import * as AuthActions from '../auth/store/auth.actions';
 import * as RecipeActions from '../recipes/store/recipe.actions';
@@ -17,8 +16,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private userSubcription: Subscription;
   isUserAuthenticated = false;
 
-  constructor(private dataService: DataStorageService,
-    private store: Store<fromApp.AppState>) { }
+  constructor(private store: Store<fromApp.AppState>) { }
 
   ngOnInit() {
     // setup subscription to get the user object when logged in
@@ -32,7 +30,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   onSave() {
-    this.dataService.storeRecipes();
+    // this.dataService.storeRecipes();
+    this.store.dispatch(new RecipeActions.StoreRecipes());
   }
 
   onFetch() {

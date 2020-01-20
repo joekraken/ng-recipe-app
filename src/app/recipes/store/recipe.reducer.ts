@@ -33,7 +33,7 @@ export function recipeReducer(state = initialState, action: RecipeActions.Types)
       updatedRecipes[action.index] = updatedRecipe;
       return {
         ...state,
-        recipe: updatedRecipes
+        recipes: updatedRecipes
       };
     case RecipeActions.DELETE_RECIPE:
       return {

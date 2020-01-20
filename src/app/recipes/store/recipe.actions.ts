@@ -8,6 +8,7 @@ export const FETCH_RECIPES = '[Recipes] FETCH_RECIPES';
 export const ADD_RECIPE = '[Recipes] ADD_RECIPE';
 export const UPDATE_RECIPE = '[Recipes] UPDATE_RECIPE';
 export const DELETE_RECIPE = '[Recipes] DELETE_RECIPE';
+export const STORE_RECIPES = '[Recipes] STORE_RECIPES';
 
 export class SetRecipes implements Action {
   readonly type = SET_RECIPES;
@@ -43,8 +44,12 @@ export class DeleteRecipe implements Action {
   constructor(public index: number) {}
 }
 
+export class StoreRecipes implements Action {
+  readonly type = STORE_RECIPES;
+}
+
 // union of the Recipe Action Types
-export type Types = SetRecipes | FetchRecipes | AddRecipe | UpdateRecipe | DeleteRecipe;
+export type Types = SetRecipes | FetchRecipes | AddRecipe | UpdateRecipe | DeleteRecipe | StoreRecipes;
 
 
 
