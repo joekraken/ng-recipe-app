@@ -12,24 +12,35 @@ export const DELETE_RECIPE = '[Recipes] DELETE_RECIPE';
 export class SetRecipes implements Action {
   readonly type = SET_RECIPES;
 
-  // standard practice is to use 'payload' as property
+  // payload is the recipe[] to set in the NgRx Store
   constructor(public recipes: Recipe[]) {}
 }
 
 export class FetchRecipes implements Action {
   readonly type = FETCH_RECIPES;
+
+  // no payload required, return the recipe[] from the NgRx Store
 }
 
 export class AddRecipe implements Action {
   readonly type = ADD_RECIPE;
+
+  // payload is the new recipe to include in the recipe[]
+  constructor(public recipe: Recipe) {}
 }
 
 export class UpdateRecipe implements Action {
   readonly type = UPDATE_RECIPE;
+
+  // payload is index of recipe to change and its new data
+  constructor(public index: number, public recipe: Recipe) {}
 }
 
 export class DeleteRecipe implements Action {
   readonly type = DELETE_RECIPE;
+
+  // payload is index of recipe to remove from recipe[]
+  constructor(public index: number) {}
 }
 
 // union of the Recipe Action Types

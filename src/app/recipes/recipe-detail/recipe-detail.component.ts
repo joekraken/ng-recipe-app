@@ -6,6 +6,7 @@ import { map, switchMap } from 'rxjs/operators';
 import { Recipe } from '../recipe.model';
 import { RecipeService } from '../service/recipe.service';
 import * as fromApp from '../../store/app.reducer';
+import * as RecipesActions from '../store/recipe.actions';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -58,7 +59,8 @@ export class RecipeDetailComponent implements OnInit {
   }
 
   onDeleteRecipe() {
-    this.recipeService.deleteRecipeAt(this.id);
+    // this.recipeService.deleteRecipeAt(this.id);
+    this.store.dispatch(new RecipesActions.DeleteRecipe(this.id));
     this.router.navigate(['/recipes']); // alternatively can use routerLink='recipes' in HTML
   }
 }

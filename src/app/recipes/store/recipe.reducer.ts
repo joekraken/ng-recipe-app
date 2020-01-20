@@ -20,6 +20,29 @@ export function recipeReducer(state = initialState, action: RecipeActions.Types)
         ...state,
         recipes: [...action.recipes] // spread operator to set the recipes payload
       };
+    case RecipeActions.ADD_RECIPE:
+      return {
+        ...state,
+        recipes: [...state.recipes, action.recipe]
+      };
+    case RecipeActions.UPDATE_RECIPE:
+      // set new data into an update recipe object
+      const updatedRecipe = { ...state.recipes[action.index], ...action.recipe };
+      // get all the recipes and update the recipe at the index
+      const updatedRecipes = [...state.recipes];
+      updatedRecipes[action.index] = updatedRecipe;
+      return {
+        ...state,
+        recipe: updatedRecipes
+      };
+    case RecipeActions.DELETE_RECIPE:
+      return {
+        ...state,
+        recipes: state.recipes.filter((recipe, index) => {
+          // return elements that dontr match the index to remove at
+          return index !== action.index;
+        })
+      };
     default:
       return state;
   }
