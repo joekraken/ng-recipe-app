@@ -6,6 +6,7 @@
   },
   "files": [
     "main.server.ts"
+    // fixed incorrect file path ./src/src/main.server.ts
     // "src/main.server.ts"
   ],
   "angularCompilerOptions": {
