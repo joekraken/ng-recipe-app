@@ -24,9 +24,13 @@ export class RecipeEffects {
     }),
     // map() convert recipes JSON into recipes[] objects
     map(recipes => {
-      return recipes.map(recipe => {
-        return { ...recipe, ingredients: recipe.ingredients ? recipe.ingredients : [] };
-      });
+      if (recipes) {
+        return recipes.map(recipe => {
+          return { ...recipe, ingredients: recipe.ingredients ? recipe.ingredients : [] };
+        });
+      } else {
+        return [];
+      }
     }),
     // map() return new action to set the recipes data in the store
     map(recipes => {
