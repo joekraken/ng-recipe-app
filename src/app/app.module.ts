@@ -26,7 +26,7 @@ import { RecipeEffects } from './recipes/store/recipe.effects';
     HeaderComponent
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     HttpClientModule, // required for global Http services
     AppRoutingModule,
     StoreModule.forRoot(fromApp.appReducer), // register a global reducer and thus access a global NgRx Store
