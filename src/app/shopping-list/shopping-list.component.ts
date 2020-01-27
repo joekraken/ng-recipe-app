@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription, Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
+import { trigger, state, style, transition, animate, keyframes, group } from '@angular/animations';
 
 import { Ingredient } from '../shared/ingredient.model';
 import { ShoppingListService } from './service/shopping-list.service';
@@ -10,7 +11,16 @@ import * as fromApp from '../store/app.reducer';
 @Component({
   selector: 'app-shopping-list',
   templateUrl: './shopping-list.component.html',
-  styleUrls: ['./shopping-list.component.scss']
+  styleUrls: ['./shopping-list.component.scss'],
+  animations: [
+    trigger('listItemAnimations', [
+      state('default', style({ backgroundColor: 'blue', opacity: 1 })),
+      transition('void => *', [
+        style({ opacity: 0 }),
+        animate(1000)
+      ])
+    ])
+  ]
 })
 export class ShoppingListComponent implements OnInit, OnDestroy {
   ingredients: Ingredient[];

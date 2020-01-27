@@ -3,6 +3,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
+import { trigger, state, style, transition, animate, keyframes, group } from '@angular/animations';
+
 
 import { Recipe } from '../recipe.model';
 import * as fromApp from '../../store/app.reducer';
@@ -11,7 +13,21 @@ import * as fromApp from '../../store/app.reducer';
 @Component({
   selector: 'app-recipe-list',
   templateUrl: './recipe-list.component.html',
-  styleUrls: ['./recipe-list.component.scss']
+  styleUrls: ['./recipe-list.component.scss'],
+  animations: [
+    trigger('listAnimations', [
+      state('in', style({
+        opacity: '1', backgroundColor: 'aliceblue'
+      })),
+      // transition('void => *', [
+      //   style({ opacity: 0 }),
+      //   animate(5000)
+      // ]),
+      transition('void => in', [
+        animate(10000, style({ opacity: '0' }))
+      ])
+    ])
+  ]
 })
 export class RecipeListComponent implements OnInit, OnDestroy {
   // @Output() recipeWasSelected = new EventEmitter<Recipe>();

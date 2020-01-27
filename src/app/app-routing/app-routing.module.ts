@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
+// import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+// import { BrowserModule } from '@angular/platform-browser';
 
 const routes: Routes = [
   { path: '', redirectTo: '/recipes', pathMatch: 'full' }, // redirect for full empty path
@@ -14,7 +16,8 @@ const routes: Routes = [
   },
   { // lazy loaded module
     path: 'auth',
-    loadChildren: () => import('../auth/auth.module').then(m => m.AuthModule)
+    loadChildren: () => import('../auth/auth.module').then(m => m.AuthModule),
+    data: { animation: 'AuthPage' }
   }
   // wildcard will cause error in child route modules
   // { path: '**', redirectTo: '/recipes' } // wildcard routes redirect to main page

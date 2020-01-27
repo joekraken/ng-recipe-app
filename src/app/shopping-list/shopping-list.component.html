@@ -7,7 +7,9 @@
       <a style='cursor: pointer' class="list-group-item"
         *ngFor='let ingredient of (ingredientsObs | async).ingredients; let i = index'
         (click)='onEditItem(i)'>
-        {{ ingredient.name }} ({{ ingredient.amount }})
+        <li [@listItemAnimations]>
+          {{ ingredient.name }} ({{ ingredient.amount }})
+        </li>
       </a>
     </ul>
   </div>
